@@ -25,7 +25,7 @@ def hello_world(path):
     return "inactive", 503
 
 
-def service_active(service: str | list) -> bool:
+def service_active(service) -> bool:
     # Check whether service is active with systemctl
     if type(service) is list:
         for s in service:
@@ -37,7 +37,7 @@ def service_active(service: str | list) -> bool:
     return command.stdout.strip() == "active"
 
 
-def web_active(url: str | list) -> bool:
+def web_active(url) -> bool:
     # Check if website is reachable
 
     if type(url) is list:
