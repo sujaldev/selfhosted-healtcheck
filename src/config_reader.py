@@ -9,7 +9,7 @@ except ImportError:
 
 def parse_cli_args(sys_args):
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--config", nargs=1, default="~/.config/healthcheck/config.yml", type=ascii)
+    parser.add_argument("-c", "--config", nargs=1, default="/opt/healthcheck/config.yml", type=ascii)
     config_path = parser.parse_args(sys_args).config[-1].strip("'")
     return config_path
 
