@@ -1,30 +1,5 @@
-from flask import Flask
-from yaml import load
 import subprocess
 import requests
-
-try:
-    from yaml import CLoader as Loader, CDumper as Dumper
-except ImportError:
-    from yaml import Loader, Dumper
-
-app = Flask(__name__)
-
-with open("config.yml") as config:
-    config = load(config, Loader=Loader)[0]
-
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def hello_world(path):
-    if path.lower() in config.keys():
-        print(path)
-        is_active = perform_checks(config[path])
-        if is_active:
-            return "active"
-        else:
-            return "inactive", 503
-    return "not found", 404
 
 
 def service_active(service) -> bool:
@@ -61,7 +36,3 @@ def perform_checks(testcases: dict):
         if test_type == "web" and not web_active(test_value):
             return False
         return True
-
-
-if __name__ == "__main__":
-    app.run(port=55004)
