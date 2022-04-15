@@ -1,5 +1,7 @@
 import subprocess
 import requests
+import docker
+import docker.errors
 
 
 def service_active(service) -> bool:
@@ -29,9 +31,25 @@ def web_active(url) -> bool:
         return False
 
 
+def container_active(container_name) -> bool:
+    if type(container_name) is list:
+        for n in container_name:
+            if not container_active(n):
+                return False
+        return True
+    try:
+        docker_client = docker.from_env()
+        container = docker_client.containers.get(container_name)
+        return container.attrs["State"]["Status"] == "running"
+    except docker.errors.NotFound:
+        return False
+
+
 def perform_checks(testcases: dict):
     for test_type, test_value in testcases.items():
         if test_type == "service" and not service_active(test_value):
+            return False
+        if test_type == "container" and not container_active(test_value):
             return False
         if test_type == "web" and not web_active(test_value):
             return False
