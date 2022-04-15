@@ -22,7 +22,9 @@ def hello_world(path):
         is_active = perform_checks(config[path])
         if is_active:
             return "active"
-    return "inactive", 503
+        else:
+            return "inactive", 503
+    return "not found", 404
 
 
 def service_active(service) -> bool:
