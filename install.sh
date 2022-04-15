@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import sys
 import subprocess
 from pathlib import Path
 from urllib.request import urlopen
@@ -20,22 +19,22 @@ cli_run([installation_dir + "venv"])
 
 # Install Dependencies
 with urlopen(repository_base_url + "requirements.txt") as requirements:
-    dependencies = requirements.read().split("\n")
-subprocess.check_call([sys.executable, '-m', 'pip', 'install'] + dependencies)
+    dependencies = requirements.read().decode().strip().split("\n")
+subprocess.check_call([installation_dir + "venv/bin/python3", '-m', 'pip', 'install'] + dependencies)
 
 # Fetch Scripts
 for script in scripts:
-    with urlopen(src_dir_url + script) as response, open(installation_dir + script) as script_file:
-        script_file.write(response.read())
+    with urlopen(src_dir_url + script) as response, open(installation_dir + script, 'w') as script_file:
+        script_file.write(response.read().decode())
 
 # Initialize Config File
-with open(installation_dir + "config.yml") as config:
+with open(installation_dir + "config.yml", 'w') as config:
     config.write("---\n")
 
 # Setup Systemd
 # 1) Ensure systemd directory exists
 Path("/etc/systemd/system/").mkdir(parents=True, exist_ok=True)
 # 2) Fetch
-with urlopen(repository_base_url + "healthcheck.service") as response, open(service_file_path) as service_file:
-    template = response.read()
+with urlopen(repository_base_url + "healthcheck.service") as response, open(service_file_path, 'w') as service_file:
+    template = response.read().decode()
     service_file.write(template.format(installation_dir=installation_dir))
