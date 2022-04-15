@@ -1,0 +1,11 @@
+[Unit]
+Description=Healthcheck - A Small Utility To Expose Service Status
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart={installation_dir}/venv/bin/python3 {installation_dir}/app.py
+
+[Install]
+WantedBy=multi-user.target
