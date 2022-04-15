@@ -48,7 +48,7 @@ def web_active(url) -> bool:
                 return False
         return True
     try:
-        response = requests.get(url)
+        response = requests.head(url, allow_redirects=True)
         return 200 <= response.status_code < 300
     except requests.RequestException:
         return False
