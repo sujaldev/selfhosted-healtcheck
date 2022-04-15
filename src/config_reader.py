@@ -17,7 +17,10 @@ def parse_cli_args(sys_args):
 def read_config(sys_args):
     config_path = parse_cli_args(sys_args)
     with open(config_path) as config:
-        return load(config, Loader=Loader)[0]
+        config = load(config, Loader=Loader)
+        if config:
+            return config[0]
+        return {}
 
 
 if __name__ == "__main__":
