@@ -1,7 +1,6 @@
 import sys
 from flask import Flask
-from tester import perform_checks
-from config_reader import read_config
+from utils import *
 
 app = Flask(__name__)
 config = read_config(sys.argv[1:])
@@ -11,8 +10,8 @@ config = read_config(sys.argv[1:])
 @app.route('/<path:path>')
 def check(path):
     if path.lower() in config.keys():
-        print(path)
-        is_active = perform_checks(config[path])
+        testcases = config[path]
+        is_active = run_testcases(testcases)
         if is_active:
             return "active"
         else:

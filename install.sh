@@ -9,7 +9,7 @@ installation_dir = "/opt/healthcheck/"
 service_file_path = "/etc/systemd/system/healthcheck.service"
 repository_base_url = "https://raw.githubusercontent.com/sujaldev/selfhosted-healthcheck/main/"
 src_dir_url = repository_base_url + "src/"
-scripts = ["app.py", "config_reader.py", "tester.py"]
+scripts = ["app.py", "utils.py", "definitions.py"]
 
 # Create Installation Directory
 Path(installation_dir).mkdir(parents=True, exist_ok=True)
