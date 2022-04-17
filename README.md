@@ -8,7 +8,12 @@ I use this with [homer](https://github.com/bastienwirtz/homer) on my selfhosted 
 Instead of fixing CORS on every service I just created this, and now I can set cors policy
 on just this API (with nginx reverse proxy) and use the endpoint parameter in homer's config.
 
+
 # Installation
+
+### Prerequisites
+- python3
+- virtualenv
 
 ```bash
 curl https://raw.githubusercontent.com/sujaldev/selfhosted-healthcheck/main/install.sh | bash
