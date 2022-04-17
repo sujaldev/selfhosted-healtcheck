@@ -54,7 +54,7 @@ def read_config(sys_args):
     with open(config_path) as config:
         config = load(config, Loader=Loader)
         if config:
-            return config[0]
+            return config
         return {}
 
 

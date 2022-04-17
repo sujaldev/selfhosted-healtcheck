@@ -1,13 +1,14 @@
 ---
-- jellyfin:
-    service: jellyfin
-    web: https://media.example.com
-  servarr:
-    service:
-      - sonarr
-      - radarr
-      - lidarr
-    web:
-      - https://sonarr.example.com
-      - https://radarr.example.com
-      - https://lidarr.example.com
+jellyfin:
+  service: jellyfin
+  web: https://media.example.com
+
+servarr:
+  service:
+    - sonarr
+    - radarr
+    - lidarr
+  web:
+    - https://sonarr.example.com
+    - https://radarr.example.com
+    - https://lidarr.example.com
